@@ -1,0 +1,21 @@
+# User-applied Codex profile. This file does not change the active session.
+# Install as ~/.codex/airflow-git.config.toml, then launch with -p airflow-git.
+default_permissions = "airflow-git"
+approval_policy = "on-request"
+
+[features]
+network_proxy = true
+
+[permissions.airflow-git]
+description = "Airflow workspace with Git metadata writes and GitHub HTTPS access"
+extends = ":workspace"
+
+[permissions.airflow-git.filesystem]
+"/Users/chaejonghun/chapter4/airflow/.git" = "write"
+
+[permissions.airflow-git.network]
+enabled = true
+
+[permissions.airflow-git.network.domains]
+"github.com" = "allow"
+"api.github.com" = "allow"

@@ -1,0 +1,9 @@
+order_id,order_date,menu,quantity,unit_price,status
+O001,2026-10-01,americano,2,3000,paid
+O002,2026-10-01,latte,1,4000,paid
+O003,2026-10-01,tea,1,2500,cancelled
+O004,2026-10-01,americano,1,3000,paid
+O005,2026-10-02,latte,2,4000,paid
+O006,2026-10-02,tea,3,2500,paid
+O007,2026-10-02,americano,1,3000,cancelled
+O008,2026-10-02,latte,1,4000,paid

@@ -1,0 +1,35 @@
+# macOS / editors
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Python caches / virtual environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local credentials / environment settings
+.env
+.env.*
+!.env.example
+.aws/
+.codex/
+config/*.local.toml
+
+# Airflow runtime state / generated results
+logs/
+*.log
+airflow.db
+airflow.db-*
+airflow.cfg
+standalone_admin_password.txt
+simple_auth_manager_passwords.json*
+outputs/
+artifacts/

@@ -1,0 +1,18 @@
+services:
+  airflow:
+    image: apache/airflow:3.1.8-python3.12
+    command: standalone
+    working_dir: /opt/airflow/workshop
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      AIRFLOW_HOME: /opt/airflow
+      AIRFLOW__CORE__DAGS_FOLDER: /opt/airflow/workshop/dags
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      PYTHONPATH: /opt/airflow/workshop
+      MODEL_OPS_ROOT: /opt/airflow/workshop/artifacts
+    volumes:
+      - airflow-state:/opt/airflow
+      - .:/opt/airflow/workshop
+volumes:
+  airflow-state:

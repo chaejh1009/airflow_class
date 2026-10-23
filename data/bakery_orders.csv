@@ -1,0 +1,9 @@
+order_id,order_date,menu,quantity,unit_price,status
+B001,2026-10-05,bread,3,2000,paid
+B002,2026-10-05,muffin,2,2500,paid
+B003,2026-10-05,bagel,1,3000,cancelled
+B004,2026-10-05,bagel,1,3000,paid
+B005,2026-10-06,bread,2,2000,paid
+B006,2026-10-06,muffin,1,2500,paid
+B007,2026-10-06,bagel,2,3000,cancelled
+B008,2026-10-06,bread,1,2000,paid
