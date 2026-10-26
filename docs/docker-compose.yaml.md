@@ -12,7 +12,7 @@ Docker Compose
   → apache/airflow:3.1.8-python3.12
   → standalone 명령
   → /opt/airflow/workshop/dags의 DAG 로딩
-  → DAG의 orders import → /opt/airflow/workshop/orders.py
+  → DAG의 공통 모듈 import → orders.py / reports.py / workflow_day05.py / book_reporting.py
 ```
 
 ## 설정별 연결
@@ -26,7 +26,7 @@ Docker Compose
 | `AIRFLOW_HOME` | `/opt/airflow` | Airflow 홈 경로 |
 | `AIRFLOW__CORE__DAGS_FOLDER` | `/opt/airflow/workshop/dags` | DAG 검색 경로 |
 | `AIRFLOW__CORE__LOAD_EXAMPLES` | `"false"` | 기본 예제 DAG 로딩 비활성화 |
-| `PYTHONPATH` | `/opt/airflow/workshop` | DAG에서 루트의 `orders.py`를 import할 경로 |
+| `PYTHONPATH` | `/opt/airflow/workshop` | DAG에서 루트의 공통 Python 모듈을 import할 경로 |
 | `MODEL_OPS_ROOT` | `/opt/airflow/workshop/artifacts` | 환경 변수만 정의됨. 현재 Python 코드에서는 참조하지 않음 |
 
 ## 호스트·컨테이너 경로 대응
@@ -37,10 +37,11 @@ Docker Compose
 | 프로젝트 루트 `.` | `/opt/airflow/workshop` | 프로젝트 전체 바인드 마운트 |
 | `./dags/` | `/opt/airflow/workshop/dags/` | DAG 파일 |
 | `./orders.py` | `/opt/airflow/workshop/orders.py` | 공통 함수 모듈 |
+| `./reports.py`, `./workflow_day05.py`, `./book_reporting.py` | `/opt/airflow/workshop/` 아래 같은 파일명 | 날짜 선택·보고서·실행별 저장 모듈 |
 | `./data/` | `/opt/airflow/workshop/data/` | CSV 읽기 |
-| `./outputs/` | `/opt/airflow/workshop/outputs/` | 카페 JSON 저장 |
+| `./outputs/` | `/opt/airflow/workshop/outputs/` | 카페 JSON, day05 실행별 CSV 복사본·보고서·결합 JSON 저장 |
 
-아래 네 개 파일·폴더 경로는 별도 볼륨 선언이 아니라 프로젝트 전체 마운트에 포함된다. 호스트 `config/`를 Airflow 설정 경로로 연결하는 별도 설정은 없다.
+표의 개별 파일·폴더 경로는 별도 볼륨 선언이 아니라 프로젝트 루트 마운트에 포함된다. `airflow-state`는 별도 명명 볼륨이다. 호스트 `config/`를 Airflow 설정 경로로 연결하는 별도 설정은 없다. 파일 및 XCom 보고서 실습은 Task들이 같은 `outputs/` 파일에 접근할 수 있는 이 구성을 사용한다.
 
 ## 수정 지점과 확인 사항
 
