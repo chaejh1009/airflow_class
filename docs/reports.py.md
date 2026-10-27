@@ -12,7 +12,7 @@
 
 ### `build_report(rows, report_date, min_revenue)`
 
-[book_reporting.py](book_reporting.py.md)의 `make_report`가 호출한다. `filter_date(rows, report_date)` → `orders.paid_orders(selected)` → `orders.summarize(...)` 순서로 처리한다.
+[book_reporting.py](book_reporting.py.md)의 `make_report`와 [book_operations.py](book_operations.py.md)의 `make_daily_report`가 호출한다. `filter_date(rows, report_date)` → `orders.paid_orders(selected)` → `orders.summarize(...)` 순서로 처리한다.
 
 반환 사전은 `report_date`, `order_count`, `quantity`, `revenue`, `min_revenue`, `target_met`을 담는다. `target_met`은 집계 매출이 `min_revenue` 이상이면 `True`다. 기준값을 정수로 변환하지 않으므로 호출자가 숫자로 전달해야 한다.
 
@@ -27,6 +27,7 @@ book_reporting.make_report(report_date, source_path, min_revenue)
       → orders.summarize(paid_rows)
       → 날짜·집계·목표 달성 여부 사전
 
+book_operations.make_daily_report → orders.read_orders → build_report
 workflow_day05.select_day → filter_date → 날짜 선택 행
 bakery_book_taskflow.clean → filter_date → orders.paid_orders
 ```

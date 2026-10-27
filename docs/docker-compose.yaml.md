@@ -13,6 +13,7 @@ Docker Compose
   → standalone 명령
   → /opt/airflow/workshop/dags의 DAG 로딩
   → DAG의 공통 모듈 import → orders.py / reports.py / workflow_day05.py / book_reporting.py
+                                    / book_operations.py / bakery_ml.py
 ```
 
 ## 설정별 연결
@@ -38,8 +39,9 @@ Docker Compose
 | `./dags/` | `/opt/airflow/workshop/dags/` | DAG 파일 |
 | `./orders.py` | `/opt/airflow/workshop/orders.py` | 공통 함수 모듈 |
 | `./reports.py`, `./workflow_day05.py`, `./book_reporting.py` | `/opt/airflow/workshop/` 아래 같은 파일명 | 날짜 선택·보고서·실행별 저장 모듈 |
+| `./book_operations.py`, `./bakery_ml.py` | `/opt/airflow/workshop/` 아래 같은 파일명 | Day 06 운영·ML 모듈 |
 | `./data/` | `/opt/airflow/workshop/data/` | CSV 읽기 |
-| `./outputs/` | `/opt/airflow/workshop/outputs/` | 카페 JSON, day05 실행별 CSV 복사본·보고서·결합 JSON 저장 |
+| `./outputs/` | `/opt/airflow/workshop/outputs/` | 카페 JSON, Day 05 실행별 파일, Day 06 날짜별 보고서·ML 모델·평가·예측 저장 |
 
 표의 개별 파일·폴더 경로는 별도 볼륨 선언이 아니라 프로젝트 루트 마운트에 포함된다. `airflow-state`는 별도 명명 볼륨이다. 호스트 `config/`를 Airflow 설정 경로로 연결하는 별도 설정은 없다. 파일 및 XCom 보고서 실습은 Task들이 같은 `outputs/` 파일에 접근할 수 있는 이 구성을 사용한다.
 
@@ -48,3 +50,5 @@ Docker Compose
 접속 포트는 `ports`, 실행 이미지 버전은 `image`, DAG 위치는 `AIRFLOW__CORE__DAGS_FOLDER`에서 변경한다. 프로젝트 마운트 위치를 바꾸면 `working_dir`, `PYTHONPATH`, DAG 경로도 함께 확인해야 한다. 이 설정이 맞지 않으면 모듈 import 또는 상대 경로 CSV 읽기가 실패할 수 있다.
 
 이 파일에는 별도 빌드 설정, 추가 패키지 설치 단계, 외부 데이터베이스 서비스가 없다. DAG의 업무 흐름과 저장 목적지는 각각의 Python 파일에서 정의한다.
+
+Day 06 운영 모듈의 `requests`, ML 모듈의 `joblib`·`scikit-learn`은 실행 환경에 별도로 준비해야 한다. 현재 Compose는 설치를 보장하지 않는다. 설치·확인은 [README](../README.md)의 Airflow 실행 절차를 참고한다. `bakery_book_ml`은 매분 실행하고, 결과는 `MODEL_OPS_ROOT` 대신 코드의 기본 `outputs/book/day06/ml/`에 저장한다.
